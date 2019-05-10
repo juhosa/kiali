@@ -1,0 +1,19 @@
+{
+  "name": "kiali",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+          "test": "jest --coverage --verbose=true --silent=false",
+          "format": "prettier --write",
+          "prepare": "npm run build",
+          "build": "microbundle -i src/index.js -o dist"
+  },
+  "dependencies": {
+    "parcel-bundler": "^1.12.3"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "microbundle": "^0.11.0"
+  }
+}
