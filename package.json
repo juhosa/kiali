@@ -4,10 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-          "test": "jest --coverage --verbose=true --silent=false",
-          "format": "prettier --write",
-          "prepare": "npm run build",
-          "build": "microbundle -i src/index.js -o dist"
+    "test": "jest --coverage --verbose=true --silent=false",
+    "format": "prettier --write",
+    "prepare": "npm run build",
+    "build": "microbundle -i src/index.js -o dist"
   },
   "dependencies": {
     "parcel-bundler": "^1.12.3"
