@@ -22,13 +22,83 @@ literal-Node:
 }
 */
 
-let root = {
-    nodes: [],
+class AST {
+    index = 0
+    tokens = []
+
+    literal = token => {
+        // console.log('literaalissa', token)
+        return {
+            type: 'literal',
+            value: token.value,
+        }
+    }
+
+    tulost = token => {
+        // seuraava pitää olla OPEN_PAREN
+        // muuten virhe
+        // otetaan setit CLOSE_PAREN asti ja se o sitte expression: this.build(setit)
+        if (this.tokens[++this.index].value !== 'OPEN_PAREN') {
+            throw new Error(`Syntax error while parsing expression for tulost`)
+        }
+        let setit = []
+        let t = this.tokens[++this.index]
+        while (t.value !== 'CLOSE_PAREN') {
+            // console.log('t', t)
+            setit.push(t)
+            t = this.tokens[++this.index]
+        }
+        let expr = []
+        for (const s of setit) {
+            // console.log('s', s)
+            expr.push(this.build(s))
+        }
+        // console.dir(expr)
+        return {
+            type: 'keyword',
+            value: 'tulost',
+            expression: expr,
+        }
+    }
+
+    keyword = token => {
+        if (this[token.value]) {
+            return this[token.value](token)
+        } else {
+            throw new Error(`Keyword not implemented: $(token.value)`)
+        }
+    }
+
+    special = token => {
+        return {
+            name: 'special',
+            body: 'spessu',
+        }
+    }
+
+    start = source => {
+        this.tokens = lexer(source)
+        // console.dir(this.tokens)
+        let root = []
+        while (this.index < this.tokens.length) {
+            root.push(this.build(this.tokens[this.index]))
+            this.index++
+        }
+        let ret = { type: 'body', body: root }
+        // console.dir(ret)
+        return ret
+    }
+
+    build = token => {
+        let node = null
+        if (this[token.name]) {
+            node = this[token.name](token)
+        } else {
+            throw new Error(`Not implemented: ${token.name}`)
+        }
+
+        return node
+    }
 }
 
-const ast = source => {
-    const tokens = lexer(source)
-    return root
-}
-
-export default ast
+export default AST
