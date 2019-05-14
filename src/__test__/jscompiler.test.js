@@ -6,5 +6,5 @@ test('jscompiler testi 1', () => {
     const ast = new AST()
     const tokens = ast.start(code)
     const compiler = new JSCompiler()
-    expect(compiler.compile(tokens)).toEqual(`console.log('jee')`)
+    expect(compiler.compile(tokens)).toEqual(`console.log("jee")`)
 })
