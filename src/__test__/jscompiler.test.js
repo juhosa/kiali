@@ -8,3 +8,11 @@ test('jscompiler testi 1', () => {
     const compiler = new JSCompiler()
     expect(compiler.compile(tokens)).toEqual(`console.log("jee")`)
 })
+
+test('jscompiler testi 2', () => {
+    const code = `"testi"`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`"testi"`)
+})

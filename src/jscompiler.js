@@ -6,7 +6,9 @@ class JSCompiler {
         // for (const c of node.body) {
 
         // }
-        return `${this.compile(node.body[0])}`
+        node.lines = node.body.map(n => this.compile(n))
+        return node.lines.join('\n')
+        // return `${this.compile(node.body[0])}`
     }
 
     keyword = node => {
@@ -26,7 +28,9 @@ class JSCompiler {
 
     tulost = node => {
         // expression on array, deal with it
-        return `console.log(${this.compile(node.expression[0])})`
+        node.lines = node.expression.map(n => this.compile(n))
+        // return `console.log(${this.compile(node.expression[0])})`
+        return `console.log(${node.lines.join('\n')})`
     }
 
     compile = node => {
