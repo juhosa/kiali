@@ -32,3 +32,11 @@ test('jscompiler testi 3', () => {
     const compiler = new JSCompiler()
     expect(compiler.compile(tokens)).toEqual(`console.log("jee hee")`)
 })
+
+test('jscompiler testi 5', () => {
+    const code = `tulost(true)`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`console.log(true)`)
+})

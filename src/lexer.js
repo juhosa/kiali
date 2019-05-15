@@ -10,6 +10,12 @@ const specials = [
     ')',
 ]
 
+const literals = [
+    // literals
+    'true',
+    'false',
+]
+
 const lexer = source => {
     // console.log('lexer.js')
     let re = /([\s\n\t\(\)])/
@@ -30,6 +36,11 @@ const lexer = source => {
         }
 
         // literals
+        if (literals.includes(s)) {
+            tokens.push({ name: 'literal', value: s })
+            position++
+            continue
+        }
         // tuplahipsut
         if (s[0] === '"') {
             // jos alkaa " ja loppuuki siihe
