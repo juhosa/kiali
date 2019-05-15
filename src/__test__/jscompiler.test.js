@@ -16,3 +16,19 @@ test('jscompiler testi 2', () => {
     const compiler = new JSCompiler()
     expect(compiler.compile(tokens)).toEqual(`"testi"`)
 })
+
+test('jscompiler testi 4', () => {
+    const code = `"testi mesti"`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`"testi mesti"`)
+})
+
+test('jscompiler testi 3', () => {
+    const code = `tulost("jee hee")`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`console.log("jee hee")`)
+})

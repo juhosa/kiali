@@ -15,6 +15,26 @@ test('lexer tulost testi 2', () => {
     ])
 })
 
+test('lexer tulost testi 3', () => {
+    const code = `tulost("jee moi")`
+    expect(lexer(code)).toStrictEqual([
+        { value: 'tulost', name: 'keyword' },
+        { value: 'OPEN_PAREN', name: 'special' },
+        { value: '"jee moi"', name: 'literal' },
+        { value: 'CLOSE_PAREN', name: 'special' },
+    ])
+})
+
+test('lexer tulost testi 4', () => {
+    const code = `tulost("jee moi kolmas")`
+    expect(lexer(code)).toStrictEqual([
+        { value: 'tulost', name: 'keyword' },
+        { value: 'OPEN_PAREN', name: 'special' },
+        { value: '"jee moi kolmas"', name: 'literal' },
+        { value: 'CLOSE_PAREN', name: 'special' },
+    ])
+})
+
 test('lexer special NEWLINE 1', () => {
     const code = `tulost
     `

@@ -16,18 +16,44 @@ const lexer = source => {
     const sourceSplit = source.split(re)
     // console.dir(sourceSplit)
     let tokens = []
-    for (const s of sourceSplit) {
+    let position = 0
+
+    // for (const s of sourceSplit) {
+    while (position < sourceSplit.length) {
+        let s = sourceSplit[position]
         // console.log(s)
         // if keyword
         if (keywords.includes(s)) {
             tokens.push({ name: 'keyword', value: s })
+            position++
             continue
         }
 
         // literals
-        if (s[0] === '"' && s[s.length - 1] === '"') {
-            tokens.push({ name: 'literal', value: s })
-            continue
+        // tuplahipsut
+        if (s[0] === '"') {
+            // jos alkaa " ja loppuuki siihe
+            if (s[s.length - 1] === '"') {
+                tokens.push({ name: 'literal', value: s })
+                position++
+                continue
+            } else {
+                // jos alkaa " mut ei lopu
+                // tarkistele seuraavia niin kauan et tulee vastaan " loppuva
+                let lit = s
+                position++
+                while (position < sourceSplit.length) {
+                    s = sourceSplit[position]
+                    lit += s
+                    if (s[s.length - 1] === '"') {
+                        break
+                    }
+                    position++
+                }
+                tokens.push({ name: 'literal', value: lit })
+                position++
+                continue
+            }
         }
 
         // specials
@@ -41,8 +67,10 @@ const lexer = source => {
                 v = 'CLOSE_PAREN'
             }
             tokens.push({ name: 'special', value: v })
+            position++
             continue
         }
+        position++
     }
     // console.dir(tokens)
     return tokens
