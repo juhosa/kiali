@@ -12,7 +12,7 @@ const specials = [
 
 const lexer = source => {
     // console.log('lexer.js')
-    let re = /([\s\n\t\(\))])/
+    let re = /([\s\n\t\(\)])/
     const sourceSplit = source.split(re)
     // console.dir(sourceSplit)
     let tokens = []
