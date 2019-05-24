@@ -16,6 +16,11 @@ const literals = [
     'false',
 ]
 
+const operators = [
+    // operators
+    'o', // equals, ==
+]
+
 const lexer = source => {
     // console.log('lexer.js')
     let re = /([\s\n\t\(\)])/
@@ -31,6 +36,13 @@ const lexer = source => {
         // if keyword
         if (keywords.includes(s)) {
             tokens.push({ name: 'keyword', value: s })
+            position++
+            continue
+        }
+
+        // operators
+        if (operators.includes(s)) {
+            tokens.push({ name: 'operator', value: s })
             position++
             continue
         }

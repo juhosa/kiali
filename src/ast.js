@@ -27,10 +27,28 @@ class AST {
     tokens = []
 
     literal = token => {
-        // console.log('literaalissa', token)
+        // tarkista seuraava, jos operaattori, ni pitää tehä juttuja
+        if (
+            this.tokens[++this.index] !== undefined &&
+            this.tokens[this.index].name === 'operator'
+        ) {
+            return this.operator(token, this.tokens[this.index])
+        } else {
+            return {
+                type: 'literal',
+                value: token.value,
+            }
+        }
+    }
+
+    operator = (leftToken, operToken) => {
+        const rightToken = this.tokens[++this.index]
+        // console.log(leftToken, operToken, rightToken)
         return {
-            type: 'literal',
-            value: token.value,
+            type: 'operator',
+            operator: operToken.value,
+            left: this.build(leftToken),
+            right: this.build(rightToken),
         }
     }
 

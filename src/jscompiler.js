@@ -18,6 +18,15 @@ class JSCompiler {
         return `${node.value}`
     }
 
+    operator = node => {
+        // console.log(node)
+        let op = ''
+        if (node.operator === 'o') {
+            op = '==='
+        }
+        return `${this.compile(node.left)} ${op} ${this.compile(node.right)}`
+    }
+
     tulost = node => {
         node.lines = node.expression.map(n => this.compile(n))
         return `console.log(${node.lines.join('\n')})`
@@ -30,7 +39,7 @@ class JSCompiler {
             throw new Error(`Not implemented: ${node.type}`)
         }
 
-        console.log(node)
+        // console.log(node)
         return node
     }
 }

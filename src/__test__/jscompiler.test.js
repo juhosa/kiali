@@ -40,3 +40,19 @@ test('jscompiler testi 5', () => {
     const compiler = new JSCompiler()
     expect(compiler.compile(tokens)).toEqual(`console.log(true)`)
 })
+
+test('jscompiler o operaattori 1', () => {
+    const code = `true o true`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`true === true`)
+})
+
+test('jscompiler o operaattori 2', () => {
+    const code = `tulost(true o true)`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`console.log(true === true)`)
+})

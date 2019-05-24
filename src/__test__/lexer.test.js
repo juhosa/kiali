@@ -35,6 +35,27 @@ test('lexer tulost testi 4', () => {
     ])
 })
 
+test('lexer operators testi 1', () => {
+    const code = `"a" o "a"`
+    expect(lexer(code)).toStrictEqual([
+        { value: '"a"', name: 'literal' },
+        { value: 'o', name: 'operator' },
+        { value: '"a"', name: 'literal' },
+    ])
+})
+
+test('lexer operators testi 2', () => {
+    const code = `tulost("a" o "a")`
+    expect(lexer(code)).toStrictEqual([
+        { value: 'tulost', name: 'keyword' },
+        { value: 'OPEN_PAREN', name: 'special' },
+        { value: '"a"', name: 'literal' },
+        { value: 'o', name: 'operator' },
+        { value: '"a"', name: 'literal' },
+        { value: 'CLOSE_PAREN', name: 'special' },
+    ])
+})
+
 test('lexer special NEWLINE 1', () => {
     const code = `tulost
     `
