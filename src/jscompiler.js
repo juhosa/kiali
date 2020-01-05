@@ -18,11 +18,21 @@ class JSCompiler {
         return `${node.value}`
     }
 
+    string_literal = node => {
+        return `${node.value}`
+    }
+
+    number = node => {
+        return `${node.value}`
+    }
+
     operator = node => {
-        // console.log(node)
+        // console.log({ node })
         let op = ''
         if (node.operator === 'o') {
             op = '==='
+        } else {
+            op = node.operator
         }
         return `${this.compile(node.left)} ${op} ${this.compile(node.right)}`
     }

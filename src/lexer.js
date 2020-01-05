@@ -19,10 +19,19 @@ const literals = [
 const operators = [
     // operators
     'o', // equals, ==
+
+    '+', // plus sign
+    '-', // minus sign
+    '/', // division
+    '*', // times
+
+    '=', // sijoitus
 ]
 
 const lexer = source => {
     // console.log('lexer.js')
+    // TODO Improve this splitter.
+    // Currently 2+2 gets split wrongly.
     let re = /([\s\n\t\(\)])/
     const sourceSplit = source.split(re)
     // console.dir(sourceSplit)
@@ -93,6 +102,21 @@ const lexer = source => {
             position++
             continue
         }
+
+        // numbers (integers)
+        if (s.match(/([1-9]+)/)) {
+            tokens.push({ name: 'number', value: parseInt(s) })
+            position++
+            continue
+        }
+
+        // string literals
+        if (s.match(/\w/)) {
+            tokens.push({ name: 'string_literal', value: s })
+            position++
+            continue
+        }
+
         position++
     }
     // console.dir(tokens)

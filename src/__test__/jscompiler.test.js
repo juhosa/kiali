@@ -56,3 +56,83 @@ test('jscompiler o operaattori 2', () => {
     const compiler = new JSCompiler()
     expect(compiler.compile(tokens)).toEqual(`console.log(true === true)`)
 })
+
+test('jscompiler plus operaattori 1', () => {
+    const code = `2 + 2`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`2 + 2`)
+})
+
+test('jscompiler plus operaattori 2', () => {
+    const code = `tulost(2 + 2)`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`console.log(2 + 2)`)
+})
+
+test('jscompiler minus operaattori 1', () => {
+    const code = `2 - 2`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`2 - 2`)
+})
+
+test('jscompiler minus operaattori 2', () => {
+    const code = `tulost(2 - 2)`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`console.log(2 - 2)`)
+})
+
+test('jscompiler times operaattori 1', () => {
+    const code = `2 * 2`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`2 * 2`)
+})
+
+test('jscompiler times operaattori 2', () => {
+    const code = `tulost(2 * 2)`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`console.log(2 * 2)`)
+})
+
+test('jscompiler divide operaattori 1', () => {
+    const code = `2 / 2`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`2 / 2`)
+})
+
+test('jscompiler divide operaattori 2', () => {
+    const code = `tulost(2 / 2)`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`console.log(2 / 2)`)
+})
+
+test('jscompiler variable assingment 1', () => {
+    const code = `a = 2`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`a = 2`)
+})
+
+test('jscompiler ohboi', () => {
+    const code = `a = 2 * a`
+    const ast = new AST()
+    const tokens = ast.start(code)
+    const compiler = new JSCompiler()
+    expect(compiler.compile(tokens)).toEqual(`a = 2 * a`)
+})

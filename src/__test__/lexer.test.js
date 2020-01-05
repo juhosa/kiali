@@ -70,3 +70,63 @@ test('lexer special NEWLINE 2', () => {
     `
     expect(lexer(code)).toStrictEqual([{ value: 'NEWLINE', name: 'special' }])
 })
+
+test('lexer literal 1', () => {
+    const code = `true`
+    expect(lexer(code)).toStrictEqual([{ value: 'true', name: 'literal' }])
+})
+
+test('lexer literal 2', () => {
+    const code = `false`
+    expect(lexer(code)).toStrictEqual([{ value: 'false', name: 'literal' }])
+})
+
+test('lexer number 1', () => {
+    const code = `2`
+    expect(lexer(code)).toStrictEqual([{ value: 2, name: 'number' }])
+})
+
+test('lexer plus operation 1', () => {
+    const code = `2 + 2`
+    expect(lexer(code)).toStrictEqual([
+        { value: 2, name: 'number' },
+        { value: '+', name: 'operator' },
+        { value: 2, name: 'number' },
+    ])
+})
+
+test('lexer minus operation 1', () => {
+    const code = `2 - 2`
+    expect(lexer(code)).toStrictEqual([
+        { value: 2, name: 'number' },
+        { value: '-', name: 'operator' },
+        { value: 2, name: 'number' },
+    ])
+})
+
+test('lexer times operation 1', () => {
+    const code = `2 * 2`
+    expect(lexer(code)).toStrictEqual([
+        { value: 2, name: 'number' },
+        { value: '*', name: 'operator' },
+        { value: 2, name: 'number' },
+    ])
+})
+
+test('lexer division operation 1', () => {
+    const code = `2 / 2`
+    expect(lexer(code)).toStrictEqual([
+        { value: 2, name: 'number' },
+        { value: '/', name: 'operator' },
+        { value: 2, name: 'number' },
+    ])
+})
+
+test('lexer sijoitus operation 1', () => {
+    const code = `a = 2`
+    expect(lexer(code)).toStrictEqual([
+        { value: 'a', name: 'string_literal' },
+        { value: '=', name: 'operator' },
+        { value: 2, name: 'number' },
+    ])
+})
